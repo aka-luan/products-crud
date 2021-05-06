@@ -1,26 +1,32 @@
+import { Paper, makeStyles } from '@material-ui/core';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ProductsForm } from './Components/ProductsForm';
+import { ProductsTable } from './Components/ProductsTable';
+import { GlobalStyles } from './Styles/GlobalStyle';
+import { ProductsProvider } from './Utils/ProductsContext';
 
-function App() {
+const useStyles = makeStyles(theme => ({
+  pageContent: {
+    margin: theme.spacing(5),
+    padding: theme.spacing(5)
+  }
+}))
+
+export function App() {
+
+  const classes = useStyles()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ProductsProvider>
+        <Paper className={classes.pageContent}  >
+          <ProductsForm />
+        </Paper>
+        <Paper className={classes.pageContent}  >
+          <ProductsTable />
+        </Paper>
+      </ProductsProvider>
+      <GlobalStyles />
+    </>
+
   );
 }
-
-export default App;
