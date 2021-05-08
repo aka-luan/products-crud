@@ -24,9 +24,10 @@ export function ProductsProvider({ children }: ProductsProviderContext) {
     .then(response => setProducts([response.data]))
   }, [])
 
+
   /* Realiza o post do novo produto para a fake api */
   async function addProduct(product: Product) {
-    const response = await api.post('/products', product)    
+    const response = await api.post('/products', product)
 
     setProducts([...products, response.data])
   }

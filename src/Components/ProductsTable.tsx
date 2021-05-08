@@ -1,18 +1,12 @@
-import { makeStyles, TableContainer } from '@material-ui/core'
+import { TableContainer } from '@material-ui/core'
 import React, { useContext } from 'react'
 import ProductsContext from '../Utils/ProductsContext'
 import DataTable from 'react-data-table-component'
 
-const useStyles = makeStyles(theme => ({
-  table: {
-    minWidth: '720',
-  },
-}))
-
 
 /* Criação do componente table */
 export function ProductsTable() {
-  const classes = useStyles()
+
   const { products } = useContext(ProductsContext)
 
   /* Criação das colunas que são requeridas pelo componente da lib react-data-table-component */
