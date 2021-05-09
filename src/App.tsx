@@ -5,6 +5,7 @@ import { ProductsTable } from './Components/ProductsTable';
 import { GlobalStyles } from './Styles/GlobalStyle';
 import { ProductsProvider } from './Utils/ProductsContext';
 import Modal from 'react-modal'
+import { GenericModal } from './Components/GenericModal';
 
 const useStyles = makeStyles(theme => ({
   pageContent: {
@@ -12,17 +13,6 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(5)
   }
 }))
-
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
 
 Modal.setAppElement('#root')
 
@@ -40,9 +30,7 @@ export function App() {
 
   function closeModal(){
     setIsModalOpen(false);
-  }
-
-  
+  }  
 
   return (
     <>
@@ -54,13 +42,11 @@ export function App() {
           <ProductsTable handleOpenModal={openModal}/>
         </Paper>
       </ProductsProvider>
-      <Modal
+      <GenericModal 
         isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-      >
-        {modalBodyText}
-      </Modal>
+        closeModal={closeModal}
+        text={modalBodyText}        
+      />
       <GlobalStyles />
     </>
 

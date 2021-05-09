@@ -11,3 +11,9 @@ export interface Product {
 export interface ProductFormsProps {
   handleOpenModal: (text: string) => void
 }
+
+export interface NewTransactionModalProps {
+  isOpen: boolean,
+  closeModal: () => void,
+  text: string;
+}
