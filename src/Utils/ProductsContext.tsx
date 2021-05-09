@@ -4,7 +4,8 @@ import { api } from '../Services/api'
 
 interface ProductsContextData {
   products: Product[],
-  addProduct: (newProduct: Product) => Promise<void>
+  handleAddProduct: (newProduct: Product) => Promise<boolean | void>
+  handleRemoveProduct: (cod_sku: number) => void
 }
 
 interface ProductsProviderContext {
@@ -21,18 +22,32 @@ export function ProductsProvider({ children }: ProductsProviderContext) {
   /* Realiza a renderização do componente e o get dos produtos na api */
   useEffect(() => {
     api.get('/products')
-    .then(response => setProducts([response.data]))
+    .then(response => { setProducts([response.data])})
+
   }, [])
 
 
   /* Realiza o post do novo produto para a fake api */
-  async function addProduct(product: Product) {
-    const response = await api.post('/products', product)
+  async function handleAddProduct(product: Product) {
+    if (products.map(e => e.cod_sku).indexOf(product.cod_sku) !== -1){
+      return false
+    } else {
+      const response = await api.post('/products', product) 
+      setProducts([...products, response.data.product])
+    }    
 
-    setProducts([...products, response.data])
+  }
+  
+  async function handleRemoveProduct(cod_sku: number) {
+    const index = products.map(e => e.cod_sku).indexOf(cod_sku)    
+
+    await api.delete(`/products/${products[index].id}`)
+
+    const newArr = products.splice(index, 1)
+    setProducts(newArr)
   }
 
-  return (<ProductsContext.Provider value={{ products, addProduct}}>
+  return (<ProductsContext.Provider value={{ products, handleAddProduct, handleRemoveProduct }}>
     {children}  
   </ProductsContext.Provider>
   );

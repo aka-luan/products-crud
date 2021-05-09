@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Grid, makeStyles, TextField, MenuItem, Button, FormControl } from '@material-ui/core';
-import { Product } from '../Utils/Interfaces';
-import { FormHandler } from '../Utils/Handlers';
+import { Product, ProductFormsProps } from '../Utils/Interfaces';
 import { useForm, Controller } from 'react-hook-form'
+import ProductsContext from '../Utils/ProductsContext';
 
 
 /* Adiciona estilo aos componentes com classe .MuiFormControl-root e ao container do botão*/
@@ -23,30 +23,19 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-/* Valores iniciais do form */
-const initialnewProduct: Product = {
-  cod_sku: 0,
-  prod_name: '',
-  price: '',
-  category: ''
-}
-
 /* Componente do formulário de produtos */
 
-export function ProductsForm() {
+export function ProductsForm({ handleOpenModal }: ProductFormsProps) {
   const classes = useStyles()
-  const { handleSubmit, control, reset } = useForm<Product>()
 
-  /* chamada do handler para alterar os dados nos inputs, além de chamar a função para realizar o post dos produtos */
-  const {
-    handleCreateNewProduct
-  } = FormHandler();
+  const { handleSubmit, control, reset } = useForm<Product>()
+  const { handleAddProduct } = useContext(ProductsContext)
 
   return (
     /* Criação dos componentes html utilizando a lib material ui */
-    <form className={classes.root} onSubmit={handleSubmit((data: Product) => {
-      handleCreateNewProduct(data)
-      reset(initialnewProduct)
+    <form className={classes.root} onSubmit={handleSubmit(async (data: Product) => {
+      await handleAddProduct(data) !== false ? reset({cod_sku: NaN, prod_name: '', price: '', category: ''}) : handleOpenModal('O Código SKU inserido já existe')
+
     })}>
       <div><h2>Formulário de produtos</h2></div>
       <Grid container>
@@ -59,7 +48,7 @@ export function ProductsForm() {
               <TextField
                 label="Código SKU"
                 variant="outlined"
-                value={value === 0 ? '' : value}
+                value={isNaN(value) ? '' : value}
                 onChange={onChange}
                 error={!!error}
                 helperText={error ? error.message : null}
@@ -126,7 +115,7 @@ export function ProductsForm() {
               variant="contained"
               size="large"
               onClick={() => {
-                reset(initialnewProduct)
+                reset({cod_sku: NaN, prod_name: '', price: '', category: ''})
               }}
             >Limpar</Button>
             <Button
@@ -136,8 +125,10 @@ export function ProductsForm() {
               color="primary"
             >Salvar</Button>
           </FormControl>
+          
         </Grid>
       </Grid>
     </form>
+
   );
 }
