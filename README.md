@@ -20,6 +20,7 @@ A página também possui um componente de tabela que exibe uma tabela com Filtro
 * Preço
 * Categoria
 * Ações 
+* 
 Bibliotecas utilizadas
 ---------------------------
 
@@ -28,4 +29,5 @@ Bibliotecas utilizadas
 * react-hook-form
 * mirageJS
 * axios
+* styled-components (createGlobalStyle)
 
