@@ -39,11 +39,11 @@ export function ProductsProvider({ children }: ProductsProviderContext) {
   }
   
   async function handleRemoveProduct(cod_sku: number) {
-    const index = products.map(e => e.cod_sku).indexOf(cod_sku)    
+    const index = products.map(e => e.cod_sku).indexOf(cod_sku)
 
     await api.delete(`/products/${products[index].id}`)
 
-    const newArr = products.splice(index, 1)
+    const newArr = products.filter(product => product.cod_sku !== cod_sku)
     setProducts(newArr)
   }
 
