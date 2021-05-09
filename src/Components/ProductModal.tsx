@@ -47,6 +47,7 @@ export function ProductModal({ isOpen, closeModal, row, handleOpenModal }: Produ
     return (
       <form onSubmit={handleSubmit(async (data: Product) => {
         await handleEditProduct(data, original_sku)
+        closeModal()
       })}>
         <Grid container className={classes.root} direction="column" >
           <h2>Editar informações do produto</h2>
