@@ -1,8 +1,11 @@
-import Modal from "react-modal";
-import { NewTransactionModalProps } from "../Utils/Interfaces";
+import Modal from 'react-modal'
+import { GenericModalProps } from '../Utils/Interfaces'
 
-export function GenericModal({isOpen, closeModal, text}: NewTransactionModalProps) {
+export function GenericModal({isOpen, closeModal, text}: GenericModalProps) {
 
+  /**
+   * Cria os estilos customizado do modal
+   */
   const customStyles = {
     content: {
       top: '50%',

@@ -10,5 +10,7 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 16px
   }
 
-  
+  h2 {
+    padding: 1rem
+  }
 `;

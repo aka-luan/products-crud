@@ -1,11 +1,13 @@
-import { Paper, makeStyles } from '@material-ui/core';
-import React, { useState } from 'react';
-import { ProductsForm } from './Components/ProductsForm';
-import { ProductsTable } from './Components/ProductsTable';
-import { GlobalStyles } from './Styles/GlobalStyle';
-import { ProductsProvider } from './Utils/ProductsContext';
+import { Paper, makeStyles } from '@material-ui/core'
+import React, { useState } from 'react'
+import { ProductsForm } from './Components/ProductsForm'
+import { ProductsTable } from './Components/ProductsTable'
+import { GlobalStyles } from './Styles/GlobalStyle'
+import { ProductsProvider } from './Utils/ProductsContext'
 import Modal from 'react-modal'
-import { GenericModal } from './Components/GenericModal';
+import { GenericModal } from './Components/GenericModal'
+import { ProductModal } from './Components/ProductModal'
+import { Product } from './Utils/Interfaces'
 
 const useStyles = makeStyles(theme => ({
   pageContent: {
@@ -21,32 +23,46 @@ export function App() {
   const classes = useStyles()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [modalBodyText, setModalBodyText] = useState<string>('lorem ipsum')
-  
-  function openModal(text: string) {
+  const [isProductModalOpen, setIsProductModalOpen] = useState(false)
+  const [modalBodyText, setModalBodyText] = useState<string>('')
+  const [modalRow, setModalRow] = useState<Product>({} as Product)
+
+  function openGenericModal(text: string) {
     setModalBodyText(text)
-    setIsModalOpen(true);
+    setIsModalOpen(true)
   }
 
-  function closeModal(){
+  function openProductModal(row: Product) {
+    setModalRow(row)
+    setIsProductModalOpen(true)
+  }
+
+  function closeModal() {
     setIsModalOpen(false);
-  }  
+    setIsProductModalOpen(false);
+  }
 
   return (
     <>
       <ProductsProvider>
         <Paper className={classes.pageContent}  >
-          <ProductsForm handleOpenModal={openModal} />
+          <ProductsForm handleOpenModal={openGenericModal} />
         </Paper>
         <Paper className={classes.pageContent}  >
-          <ProductsTable handleOpenModal={openModal}/>
+          <ProductsTable handleOpenModal={openGenericModal} handleOpenProductModal={openProductModal} />
         </Paper>
+        <GenericModal
+          isOpen={isModalOpen}
+          closeModal={closeModal}
+          text={modalBodyText}
+        />
+        <ProductModal
+          isOpen={isProductModalOpen}
+          closeModal={closeModal}
+          row={modalRow}
+          handleOpenModal={openGenericModal}
+        />
       </ProductsProvider>
-      <GenericModal 
-        isOpen={isModalOpen}
-        closeModal={closeModal}
-        text={modalBodyText}        
-      />
       <GlobalStyles />
     </>
 

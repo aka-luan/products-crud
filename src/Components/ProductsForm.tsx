@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { Grid, makeStyles, TextField, MenuItem, Button, FormControl } from '@material-ui/core';
-import { Product, ProductFormsProps } from '../Utils/Interfaces';
+import { Grid, makeStyles, TextField, MenuItem, Button, FormControl } from '@material-ui/core'
+import { Product, ProductFormsProps } from '../Utils/Interfaces'
 import { useForm, Controller } from 'react-hook-form'
-import ProductsContext from '../Utils/ProductsContext';
+import ProductsContext from '../Utils/ProductsContext'
 
 
 /* Adiciona estilo aos componentes com classe .MuiFormControl-root e ao container do botão*/
@@ -32,16 +32,17 @@ export function ProductsForm({ handleOpenModal }: ProductFormsProps) {
   const { handleAddProduct } = useContext(ProductsContext)
 
   return (
+    
     /* Criação dos componentes html utilizando a lib material ui */
     <form className={classes.root} onSubmit={handleSubmit(async (data: Product) => {
-      await handleAddProduct(data) !== false ? reset({cod_sku: NaN, prod_name: '', price: '', category: ''}) : handleOpenModal('O Código SKU inserido já existe')
+      await handleAddProduct(data) !== false ? reset({sku: NaN, name: '', price: '', category: ''}) : handleOpenModal('O Código SKU inserido já existe. Insira outro código.')
 
     })}>
       <div><h2>Formulário de produtos</h2></div>
       <Grid container>
         <Grid item xs={6}>
           <Controller
-            name="cod_sku"
+            name="sku"
             control={control}
             defaultValue=""
             render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -58,7 +59,7 @@ export function ProductsForm({ handleOpenModal }: ProductFormsProps) {
           />
 
           <Controller
-            name="prod_name"
+            name="name"
             control={control}
             defaultValue=""
             render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -115,7 +116,7 @@ export function ProductsForm({ handleOpenModal }: ProductFormsProps) {
               variant="contained"
               size="large"
               onClick={() => {
-                reset({cod_sku: NaN, prod_name: '', price: '', category: ''})
+                reset({sku: NaN, name: '', price: '', category: ''})
               }}
             >Limpar</Button>
             <Button

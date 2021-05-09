@@ -5,7 +5,8 @@ import { api } from '../Services/api'
 interface ProductsContextData {
   products: Product[],
   handleAddProduct: (newProduct: Product) => Promise<boolean | void>
-  handleRemoveProduct: (cod_sku: number) => void
+  handleEditProduct: (product: Product, sku: number) => Promise<boolean | void>
+  handleRemoveProduct: (sku: number) => void
 }
 
 interface ProductsProviderContext {
@@ -19,35 +20,55 @@ const ProductsContext = createContext<ProductsContextData>({} as ProductsContext
 export function ProductsProvider({ children }: ProductsProviderContext) {
   const [products, setProducts] = useState<Product[]>([])
 
-  /* Realiza a renderização do componente e o get dos produtos na api */
+  /** */
   useEffect(() => {
     api.get('/products')
     .then(response => { setProducts([response.data])})
-
   }, [])
-
 
   /* Realiza o post do novo produto para a fake api */
   async function handleAddProduct(product: Product) {
-    if (products.map(e => e.cod_sku).indexOf(product.cod_sku) !== -1){
+    if (products.map(e => e.sku).indexOf(product.sku) !== -1){
       return false
     } else {
       const response = await api.post('/products', product) 
       setProducts([...products, response.data.product])
     }    
+  }
 
+  async function handleEditProduct(product: Product, sku: number) {
+    if (products.map(e => e.sku).indexOf(product.sku)  !== -1){      
+      return false
+    } else {
+      const index = products.map(e => e.sku).indexOf(sku)
+      const newArr = {
+        product: {
+          sku: product.sku,
+          name: product.name,
+          price: product.price,
+          category: product.category,
+          id: products[index].id
+        } 
+      }      
+
+      const response = await api.patch(`/products/${products[index].id}`, newArr)
+
+      products.splice(index, 1, response.data.product)      
+
+      setProducts(products)
+    } 
   }
   
-  async function handleRemoveProduct(cod_sku: number) {
-    const index = products.map(e => e.cod_sku).indexOf(cod_sku)
+  async function handleRemoveProduct(sku: number) {
+    const index = products.map(e => e.sku).indexOf(sku)
 
     await api.delete(`/products/${products[index].id}`)
 
-    const newArr = products.filter(product => product.cod_sku !== cod_sku)
+    const newArr = products.filter(product => product.sku !== sku)
     setProducts(newArr)
   }
 
-  return (<ProductsContext.Provider value={{ products, handleAddProduct, handleRemoveProduct }}>
+  return (<ProductsContext.Provider value={{ products, handleAddProduct, handleRemoveProduct, handleEditProduct }}>
     {children}  
   </ProductsContext.Provider>
   );

@@ -2,8 +2,8 @@
 
 export interface Product {
   id: number;
-  cod_sku: number,
-  prod_name: string,
+  sku: number,
+  name: string,
   price: string,
   category: '' | 'Leite' | 'Doce' | 'Iogurte'
 }
@@ -12,8 +12,20 @@ export interface ProductFormsProps {
   handleOpenModal: (text: string) => void
 }
 
-export interface NewTransactionModalProps {
+export interface ProductTableProps {
+  handleOpenModal: (text: string) => void
+  handleOpenProductModal: (row: Product) => void
+}
+
+export interface GenericModalProps {
   isOpen: boolean,
   closeModal: () => void,
-  text: string;
+  text: string
+}
+
+export interface ProductModalProps {
+  isOpen: boolean,
+  closeModal: () => void,
+  row: Product,
+  handleOpenModal: (text: string) => void
 }
