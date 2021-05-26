@@ -1,12 +1,12 @@
 import { Paper, makeStyles } from '@material-ui/core'
 import React, { useState } from 'react'
+import { GlobalStyles } from './Styles/GlobalStyle'
+import Modal from 'react-modal'
 import { ProductsForm } from './Components/ProductsForm'
 import { ProductsTable } from './Components/ProductsTable'
-import { GlobalStyles } from './Styles/GlobalStyle'
-import { ProductsProvider } from './Utils/ProductsContext'
-import Modal from 'react-modal'
 import { GenericModal } from './Components/GenericModal'
 import { ProductModal } from './Components/ProductModal'
+import { ProductsProvider } from './Utils/ProductsContext'
 import { Product } from './Utils/Interfaces'
 
 const useStyles = makeStyles(theme => ({

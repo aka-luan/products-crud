@@ -1,27 +1,10 @@
 import React, { useContext } from 'react'
-import { Grid, makeStyles, TextField, MenuItem, Button, FormControl } from '@material-ui/core'
-import { Product, ProductFormsProps } from '../Utils/Interfaces'
+import { Grid, TextField, MenuItem, Button, FormControl } from '@material-ui/core'
 import { useForm, Controller } from 'react-hook-form'
-import ProductsContext from '../Utils/ProductsContext'
+import { Product, ProductFormsProps } from '../../Utils/Interfaces'
+import ProductsContext from '../../Utils/ProductsContext'
+import { useStyles } from './styles'
 
-
-/* Adiciona estilo aos componentes com classe .MuiFormControl-root e ao container do botão*/
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& .MuiFormControl-root': {
-      justify: 'center',
-      width: '50%',
-      margin: theme.spacing(1)
-    },
-  },
-  buttonContainer: {
-    display: 'block',
-    '& Button': {
-      width: '46.25%',
-      margin: theme.spacing(1)
-    }
-  }
-}))
 
 /* Componente do formulário de produtos */
 

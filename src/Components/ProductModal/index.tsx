@@ -1,37 +1,11 @@
 import React, { useContext, useState } from 'react'
 import Modal from 'react-modal'
-import { Grid, makeStyles, TextField, MenuItem, Button } from '@material-ui/core'
+import { Grid, TextField, MenuItem, Button } from '@material-ui/core'
 import { KeyboardBackspace } from '@material-ui/icons'
-import { Product, ProductModalProps } from '../Utils/Interfaces'
 import { useForm, Controller } from 'react-hook-form'
-import ProductsContext from '../Utils/ProductsContext'
-
-
-const customStyles = {
-  content: {
-    minWidth: '480px',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& .MuiFormControl-root': {
-      display: 'flex',
-      margin: theme.spacing(2)
-    },
-    '& #ViewProductGrid': {
-      display: 'flex',
-      justifyContent: 'space-between',
-      margin: theme.spacing(2)
-    }
-  }
-}))
+import { Product, ProductModalProps } from '../../Utils/Interfaces'
+import ProductsContext from '../../Utils/ProductsContext'
+import { customStyles, useStyles } from './styles'
 
 export function ProductModal({ isOpen, closeModal, row, handleOpenModal }: ProductModalProps) {
   const classes = useStyles();
