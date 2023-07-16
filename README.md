@@ -1,33 +1,57 @@
-Formulário e listagem de produtos (CRUD)
-==========================================
+# Product CRUD Application
 
-Esse aplicativo em React com Typescript realiza um CRUD local para cadastro de produtos.
+Welcome to the Product CRUD Application! This is a React application built with TypeScript, providing a local CRUD (Create, Read, Update, Delete) interface for product management.
 
-Para inicializar o app, basta baixa o código fonte e iniciar com um yarn start 
+## Features
 
-A página possui o componente formulário de criação, que conterá os seguintes campos:
+- Form for product creation with fields for SKU, product name, price, and category
+- Table for product listing with columns for SKU, name, price, category, and actions
+- Filter and sort functionality for the product table
+- Local data management with mirageJS
 
-* Código do SKU (int)
-* Nome do produto (string)
-* Preço (string)
-* Categoria (string) -- Tipo select
-    * Opções do select: Leite, Doce, Iogurte
+## Getting Started
 
-A página também possui um componente de tabela que exibe uma tabela com Filtro e Ordenação com as seguintes colunas:
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-* SKU
-* Nome
-* Preço
-* Categoria
-* Ações 
-* 
-Bibliotecas utilizadas
----------------------------
+### Prerequisites
 
-* *MaterialUI *
-* react-data-table-component
-* react-hook-form
-* mirageJS
-* axios
-* styled-components (createGlobalStyle)
+- Node.js
+- Yarn
 
+### Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/aka-luan/products-crud.git
+   ```
+2. Navigate into the cloned repository:
+   ```
+   cd products-crud
+   ```
+3. Install the dependencies:
+   ```
+   yarn install
+   ```
+4. Start the server:
+   ```
+   yarn start
+   ```
+
+## Built With
+
+- [React](https://reactjs.org/) - The web framework
+- [TypeScript](https://www.typescriptlang.org/) - The programming language
+- [Material UI](https://material-ui.com/) - For UI components
+- [react-data-table-component](https://jbetancur.github.io/react-data-table-component/) - For data table functionality
+- [react-hook-form](https://react-hook-form.com/) - For form handling
+- [mirageJS](https://miragejs.com/) - For mocking a backend server
+- [axios](https://axios-http.com/) - For making HTTP requests
+- [styled-components](https://styled-components.com/) - For component-level styling
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
